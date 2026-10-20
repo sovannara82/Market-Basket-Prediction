@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block heading %}Inventory sales history{% endblock %}
+{% block subheading %}Browse the historical records used by the forecasting model.{% endblock %}
+{% block content %}
+{% include 'warehouse/partials/filters.html' %}
+<form class="search"><input name="q" value="{{ active.q }}" placeholder="Search SKU or product">{% for key, value in active.items %}{% if key != 'q' and key != 'page' and key != 'sort' %}<input type="hidden" name="{{ key }}" value="{{ value }}">{% endif %}{% endfor %}<button class="btn btn-teal">Search</button></form>
+<section class="panel"><div class="table-responsive"><table class="table"><thead><tr><th><a href="?{{ sort_query }}{% if sort_query %}&amp;{% endif %}sort=sku">SKU</a></th><th><a href="?{{ sort_query }}{% if sort_query %}&amp;{% endif %}sort=product_name">Product</a></th><th>Sales location</th><th>Category</th><th>Period</th><th>Units sold</th><th>Inventory</th></tr></thead><tbody>{% for r in page %}<tr><td>{{ r.sku }}</td><td>{{ r.product_name }}</td><td>{{ r.warehouse_name }}</td><td>{{ r.category }}</td><td>{{ r.month_name }} {{ r.year }}</td><td>{{ r.units_shipped }}</td><td>{{ r.stock_on_hand }}</td></tr>{% empty %}<tr><td colspan="7">No matching product sales rows.</td></tr>{% endfor %}</tbody></table></div><div class="pagination">{% if page.has_previous %}<a href="?{{ page_query }}{% if page_query %}&amp;{% endif %}page={{ page.previous_page_number }}">Previous</a>{% endif %}<span>Page {{ page.number }} of {{ page.paginator.num_pages }}</span>{% if page.has_next %}<a href="?{{ page_query }}{% if page_query %}&amp;{% endif %}page={{ page.next_page_number }}">Next</a>{% endif %}</div></section>
+{% endblock %}

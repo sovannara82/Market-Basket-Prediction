@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block heading %}Upload inventory sales data{% endblock %}
+{% block subheading %}Import historic product sales and stock details for next-month forecasting.{% endblock %}
+{% block content %}
+<section class="panel upload"><h2>Import sales history</h2><p>Upload an .xlsx workbook containing product sales, stock on hand, reorder levels, periods, categories, seasons, and warehouse details.</p><form method="post" enctype="multipart/form-data">{% csrf_token %}{{ form.non_field_errors }}{{ form.workbook }}{% for error in form.workbook.errors %}<div class="text-danger mt-2">{{ error }}</div>{% endfor %}<button class="btn btn-teal mt-3">Validate and import</button></form><a class="mt-3 d-inline-block" href="{% static 'fixtures/stockforecast_sample.xlsx' %}?v=3">Download demo sales workbook</a></section>
+{% if result %}<section class="metrics report">{% for label,value in result.report.items %}<article><span>{{ label|cut:'_'|title }}</span><strong>{{ value }}</strong></article>{% endfor %}</section><section class="panel"><h3>Cleaned data preview</h3><div class="table-responsive"><table class="table"><thead><tr>{% for key in result.preview.0.keys %}<th>{{ key|cut:'_'|title }}</th>{% endfor %}</tr></thead><tbody>{% for row in result.preview %}<tr>{% for value in row.values %}<td>{{ value }}</td>{% endfor %}</tr>{% endfor %}</tbody></table></div></section>{% endif %}
+{% endblock %}
