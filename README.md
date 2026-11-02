@@ -5,13 +5,18 @@ Inventory Forecast is a Django dashboard that predicts next-month product demand
 ## Start
 
 ```powershell
-cd StockForecast
 pip install -r requirements.txt
 python manage.py migrate
 python manage.py runserver
 ```
 
-Upload `fixtures/stockforecast_sample.xlsx` at `http://127.0.0.1:8000/upload/`. A successful upload automatically fits the model and updates recommendations.
+Open `http://127.0.0.1:8000/upload/` and upload `sample_data/inventory_forecast_demo.xlsx`. It contains 24 rows of fictional two-year sales history for one warehouse/product pair, which is sufficient to exercise importing, model fitting, and restock recommendations. It contains no personal, customer, or production data.
+
+`fixtures/stockforecast_sample.xlsx` is a larger reproducible demonstration workbook. To regenerate both workbooks from their checked-in generator, run:
+
+```powershell
+python scripts/build_sample.py
+```
 
 ## Workbook columns
 

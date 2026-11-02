@@ -1,0 +1,35 @@
+# Python environments and caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local data and Django runtime output
+*.sqlite3
+*.db
+media/
+staticfiles/
+*.log
+
+# Environment configuration and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# JavaScript dependencies and generated working files
+node_modules/
+work/node_modules/
+work/sample-preview.png
+
+# Editor and operating-system files
+.vscode/
+.idea/
+*.swp
+*~
+.DS_Store
+Thumbs.db

@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class StockLedger(models.Model):
     warehouse_id = models.CharField(max_length=40)
     warehouse_name = models.CharField(max_length=120)
@@ -19,7 +20,12 @@ class StockLedger(models.Model):
     uploaded_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        constraints = [models.UniqueConstraint(fields=["sku", "month", "year", "warehouse_id"], name="unique_sku_period_warehouse")]
+        constraints = [
+            models.UniqueConstraint(
+                fields=["sku", "month", "year", "warehouse_id"],
+                name="unique_sku_period_warehouse",
+            )
+        ]
         ordering = ["warehouse_name", "sku", "year", "month"]
 
     def __str__(self):
@@ -31,6 +37,7 @@ class StockLedger(models.Model):
             "January", "February", "March", "April", "May", "June",
             "July", "August", "September", "October", "November", "December",
         )[self.month - 1]
+
 
 class TrainingRun(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)

@@ -30,4 +30,11 @@ def main():
     root = Path(__file__).resolve().parents[1]
     for output in (root / "fixtures" / "stockforecast_sample.xlsx", root / "static" / "fixtures" / "stockforecast_sample.xlsx"):
         output.parent.mkdir(parents=True, exist_ok=True); workbook.save(output)
+    # A compact, fictional two-year history that can be uploaded directly from GitHub.
+    demo = Workbook(); sheet = demo.active; sheet.title = "Warehouse History"; sheet.append(HEADERS)
+    for row in rows[:24]: sheet.append(row)
+    sheet.freeze_panes = "A2"; sheet.auto_filter.ref = sheet.dimensions
+    for cell in sheet[1]: cell.font = __import__("openpyxl").styles.Font(bold=True, color="FFFFFF"); cell.fill = __import__("openpyxl").styles.PatternFill("solid", fgColor="102A43")
+    output = root / "sample_data" / "inventory_forecast_demo.xlsx"
+    output.parent.mkdir(parents=True, exist_ok=True); demo.save(output)
 if __name__ == "__main__": main()

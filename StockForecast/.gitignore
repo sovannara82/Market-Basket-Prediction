@@ -1,8 +1,0 @@
-.venv/
-__pycache__/
-*.pyc
-*.log
-db.sqlite3
-media/
-work/sample-preview.png
-work/node_modules/
